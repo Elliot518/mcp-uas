@@ -1,0 +1,79 @@
+server:
+  port: 27199
+
+
+########################################
+# nacos LAN dicovery server
+# 192.168.1.100 - tortoise
+########################################
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.100:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能
+          lower-case-service-id: true #使用小写服务名，默认是大写
+#      routes: #配置路由路径
+#        - id: book-api
+#          uri: lb://book-api
+#          predicates:
+#            - Path=/book/**
+#          filters:
+#            - StripPrefix=1
+#        - id: auth-service
+#          uri: lb://auth-service
+#          predicates:
+#            - Path=/auth/**
+#          filters:
+#            - StripPrefix=1
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://localhost:27900/rsa/publicKey' #配置RSA的公钥访问地址
+
+  ########################################
+  # redis dev server
+  # 127.0.0.1     - local
+  # 192.168.1.103 - bird
+  ########################################
+  redis:
+    database: 0
+    port: 6379
+    host: 192.168.1.103
+    #password:
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.101:3306/auth_center?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: mysql
+
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/actuator/**"
+      - "/auth/oauth/token"
+      - "/auth-service/**"
+      - "/permission-service/admin/user-tree"
+      - "/pda-mng-service/pda-login/login"
+      - "/pda-mng-service/pda-device/register"
+      - "/tenant-mng-service/tenant-login/login"
+
+########################################
+# nacos dev config server
+# 127.0.0.1     - local
+# 192.168.1.100 - tortoise
+########################################
+nacos:
+  address: 192.168.1.100:8848
+  data-id: business-gateway.json
+  group-id: MCP-GATEWAY
+  timeout: 5000
+
+
+

@@ -1,0 +1,41 @@
+[{
+		"id": "book-api",
+		"uri": "lb://book-api",
+		"predicates": [
+			"Path=/book/**"
+		],
+		"filters": [
+			"StripPrefix=1"
+		]
+	},
+	{
+		"id": "pda-mng-service",
+		"uri": "lb://pda-mng-service",
+		"predicates": [
+			"Path=/pda-mng/**"
+		],
+		"filters": [
+			"StripPrefix=1"
+		]
+	},
+	{
+		"id": "permission-service",
+		"uri": "lb://permission-service",
+		"predicates": [
+			"Path=/permission/**"
+		],
+		"filters": [
+			"StripPrefix=1"
+		]
+	},
+	{
+		"id": "auth-service",
+		"uri": "lb://auth-service",
+		"predicates": [
+			"Path=/auth/**"
+		],
+		"filters": [
+			"StripPrefix=1"
+		]
+	}
+]

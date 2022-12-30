@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcp.micro.platform.center.auth.mapper.SysAdminRoleRelationMapper">
+    <select id="listSysRolesByAdminId" resultType="com.mcp.micro.domain.auth.entity.SysRole">
+        select r.*
+        from sys_admin_role_relation sr left join sys_role r on sr.role_id = r.id
+        where sr.admin_id = #{adminId}
+    </select>
+</mapper>

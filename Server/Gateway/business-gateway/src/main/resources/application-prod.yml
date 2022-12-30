@@ -1,0 +1,47 @@
+server:
+  port: 27199
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能
+          lower-case-service-id: true #使用小写服务名，默认是大写
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://localhost:28001/rsa/publicKey' #配置RSA的公钥访问地址
+  redis:
+    database: 0
+    port: 6379
+    host: localhost
+    #password:
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.166:3306/auth_center?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: kgb007dnmt008
+
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/actuator/**"
+      - "/auth/oauth/token"
+      - "/auth-service/**"
+      - "/pda-mng-service/pda-login/login"
+      - "/pda-mng-service/pda-device/register"
+      - "/tenant-mng-service/tenant-login/login"
+
+nacos:
+  address: 192.168.1.166:8848
+  data-id: business-gateway.json
+  group-id: MCP-GATEWAY
+  timeout: 5000
+
+
